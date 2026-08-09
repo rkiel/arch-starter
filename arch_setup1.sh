@@ -140,10 +140,6 @@ partprobe "$DISK"
 
 sleep 2
 
-info "Partition layout"
-
-lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS "$DISK"
-
 # ============================================================
 # FORMAT PARTITIONS
 # ============================================================
@@ -181,10 +177,16 @@ mount "$HOME" /mnt/home
 
 swapon "$SWAP"
 
+info "Partition layout"
 
-info "BYE BYE"
-echo
-exit
+lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS "$DISK"
+
+
+read -rp 'Type INSTALL to continue: ' CONFIRM
+
+if [[ "$CONFIRM" != "INSTALL" ]]; then
+    die "Installation cancelled."
+fi
 
 # ============================================================
 # INSTALL BASE ARCH SYSTEM
@@ -219,6 +221,9 @@ info "Generating /etc/fstab"
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
+info "BYE BYE"
+echo
+exit
 
 # ============================================================
 # BASIC SYSTEM CONFIGURATION

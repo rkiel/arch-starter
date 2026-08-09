@@ -1,5 +1,7 @@
 # arch-starter
 
+### Connect to Wi-Fi
+
 ```
 iwctl device list
 
@@ -11,8 +13,10 @@ SS="TBD"
 iwctl station $DD connect $SS
 ```
 
-```
-wget --no-check-certificate --content-disposition https://raw.githubusercontent.com/rkiel/arch-starter/refs/heads/master/arch_setup1.sh
+### Download install script
 
+```
 curl -LJO https://raw.githubusercontent.com/rkiel/arch-starter/refs/heads/master/arch_setup1.sh
+
+chmod u+x arch_setup1.sh
 ```

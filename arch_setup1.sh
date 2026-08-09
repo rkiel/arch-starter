@@ -79,6 +79,10 @@ timedatectl set-ntp true
 # CONFIRM TARGET DISK
 # ============================================================
 
+read -rp 'Type DISK to continue initializing DISK: ' CONFIRM_DISK
+
+if [[ "$CONFIRM_DISK" == "DISK" ]]; then
+
 info "TARGET DISK"
 
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS
@@ -97,11 +101,9 @@ echo
 echo "This will destroy ALL data on this disk."
 echo
 
-read -rp 'Type ERASE to continue: ' CONFIRM
+read -rp 'Type ERASE to continue: ' CONFIRM_ERASE
 
-if [[ "$CONFIRM" != "ERASE" ]]; then
-    die "Installation cancelled."
-fi
+if [[ "$CONFIRM_ERASE" == "ERASE" ]]; then
 
 
 # ============================================================
@@ -181,45 +183,71 @@ info "Partition layout"
 
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS "$DISK"
 
-
-read -rp 'Type INSTALL to continue: ' CONFIRM
-
-if [[ "$CONFIRM" != "INSTALL" ]]; then
-    die "Installation cancelled."
 fi
+
+fi
+
+
+echo
+read -rp 'Type PACSTRAP to continue: ' CONFIRM_PACSTRAP
+
+if [[ "$CONFIRM_PACSTRAP" == "PACSTRAP" ]]; then
 
 # ============================================================
 # INSTALL BASE ARCH SYSTEM
 # ============================================================
+# pacstrap — Installs packages into another root directory (not the live installer you're currently running).
+# -K — Initializes a new package manager keyring in the target system (this is the recommended option in current Arch installation guides).
+# /mnt — The directory where you've mounted your future Arch installation.
+
+# base meta package installs the essential components of a minimal Arch Linux system, such as:
+# -- The Linux filesystem hierarchy
+# -- Bash
+# -- GNU Core Utilities (cp, mv, ls, cat, etc.)
+# -- systemd
+# -- pacman
+# -- Basic networking utilities
+# -- Libraries required for the system to function
+# linux - kernal
+# linux-firmware - kernal
+# intel-ucode - Intel based CPUs vs amd-ucode
 
 info "Installing base Arch Linux"
 
-pacstrap -K /mnt \
-    base \
-    linux \
-    linux-firmware \
-    intel-ucode \
-    networkmanager \
-    sudo \
-    vim \
-    nano \
-    git \
-    base-devel \
-    man-db \
-    man-pages \
-    texinfo \
-    bash-completion \
-    efibootmgr \
-    dosfstools
+pacstrap -K /mnt base
+pacstrap -K /mnt linux
+pacstrap -K /mnt linux-firmware
+pacstrap -K /mnt intel-ucode
+pacstrap -K /mnt networkmanager
+pacstrap -K /mnt sudo
+pacstrap -K /mnt vim
+pacstrap -K /mnt nano
+pacstrap -K /mnt git
+pacstrap -K /mnt base-devel
+pacstrap -K /mnt man-db
+pacstrap -K /mnt man-pages
+pacstrap -K /mnt texinfo
+pacstrap -K /mnt bash-completion
+pacstrap -K /mnt efibootmgr
+pacstrap -K /mnt dosfstools
+
+fi
 
 
 # ============================================================
 # GENERATE FSTAB
 # ============================================================
 
+echo
+genfstab -U /mnt
+
+if [[ "$CONFIRM_ERASE" == "ERASE" ]]; then
 info "Generating /etc/fstab"
 
 genfstab -U /mnt >> /mnt/etc/fstab
+fi
+
+cat /mnt/etc/fstab
 
 info "BYE BYE"
 echo

@@ -1,5 +1,11 @@
 # arch-starter
 
+### Make the font bigger
+
+```
+setfont -d
+```
+
 ### Connect to Wi-Fi
 
 ```
@@ -19,4 +25,10 @@ iwctl station $DD connect $SS
 curl -LJO https://raw.githubusercontent.com/rkiel/arch-starter/refs/heads/master/arch_setup1.sh
 
 chmod u+x arch_setup1.sh
+```
+
+### Execute
+
+```
+./arch_setup1.sh
 ```

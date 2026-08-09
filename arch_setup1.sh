@@ -11,29 +11,10 @@ set -euo pipefail
 # Apple MacBookPro14,1
 # ============================================================
 
-
-# ============================================================
-# USER CONFIGURATION
-# ============================================================
-
-read -rp "Enter disk (/dev/nvme0n1): " DISK
-read -rp "Enter username (bob): " USERNAME
-read -rp "Enter hostname (archlinux): " HOSTNAME
-
 TIMEZONE="America/New_York"
 LOCALE="en_US.UTF-8"
 
 EXPECTED_MODEL="MacBookPro14,1"
-
-
-# ============================================================
-# PARTITION SIZES
-# ============================================================
-
-EFI_SIZE="1G"
-SWAP_SIZE="8G"
-ROOT_SIZE="40G"
-
 
 # ============================================================
 # HELPER FUNCTIONS
@@ -61,8 +42,6 @@ info() {
 
 [[ $EUID -eq 0 ]] || die "Run this script as root."
 
-[[ -b "$DISK" ]] || die "$DISK does not exist."
-
 MODEL="$(cat /sys/devices/virtual/dmi/id/product_name 2>/dev/null || true)"
 
 echo
@@ -73,10 +52,6 @@ echo
 
 if [[ "$MODEL" != "$EXPECTED_MODEL" ]]; then
     die "This script is intended for $EXPECTED_MODEL. Detected: $MODEL"
-fi
-
-if [[ "$USERNAME" == "yourusername" ]]; then
-    die "Edit USERNAME near the top of the script before running it."
 fi
 
 
@@ -92,22 +67,13 @@ fi
 
 echo "UEFI mode detected."
 
-
 # ============================================================
-# WI-FI SETUP
+# TIME SYNCHRONIZATION
 # ============================================================
 
-info "Wi-Fi setup"
+info "Enabling network time synchronization"
 
-info "Checking internet connection"
-
-if ! ping -c 3 archlinux.org >/dev/null 2>&1; then
-    die "Wi-Fi connected, but internet access could not be verified."
-fi
-
-echo "Internet connection works."
-
-exit
+timedatectl set-ntp true
 
 # ============================================================
 # CONFIRM TARGET DISK
@@ -116,6 +82,8 @@ exit
 info "TARGET DISK"
 
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS "$DISK"
+
+read -rp "Enter disk (/dev/nvme0n1): " DISK
 
 echo
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
@@ -137,15 +105,6 @@ fi
 
 
 # ============================================================
-# TIME SYNCHRONIZATION
-# ============================================================
-
-info "Enabling network time synchronization"
-
-timedatectl set-ntp true
-
-
-# ============================================================
 # PARTITION DISK
 #
 # p1 = 1 GiB EFI
@@ -154,31 +113,40 @@ timedatectl set-ntp true
 # p4 = remaining space /home
 # ============================================================
 
+EFI_SIZE="1G"
+SWAP_SIZE="8G"
+ROOT_SIZE="40G"
+DISK_LABEL="gpt"
+
 info "Partitioning $DISK"
 
 wipefs -a "$DISK"
 
 sfdisk "$DISK" <<EOF
-label: gpt
+label: $DISK_LABEL
 size=$EFI_SIZE, type=uefi
 size=$SWAP_SIZE, type=swap
 size=$ROOT_SIZE, type=linux
 type=linux
 EOF
 
-partprobe "$DISK"
-
-sleep 2
-
+# must mirror above command
 EFI="${DISK}p1"
 SWAP="${DISK}p2"
 ROOT="${DISK}p3"
 HOME="${DISK}p4"
 
+partprobe "$DISK"
+
+sleep 2
+
 info "Partition layout"
 
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS "$DISK"
 
+info "BYE BYE"
+echo
+exit
 
 # ============================================================
 # FORMAT PARTITIONS
@@ -255,6 +223,9 @@ genfstab -U /mnt >> /mnt/etc/fstab
 # ============================================================
 # BASIC SYSTEM CONFIGURATION
 # ============================================================
+
+read -rp "Enter username (bob): " USERNAME
+read -rp "Enter hostname (archlinux): " HOSTNAME
 
 info "Configuring base system"
 

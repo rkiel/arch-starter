@@ -81,7 +81,7 @@ timedatectl set-ntp true
 
 info "TARGET DISK"
 
-lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS "$DISK"
+lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS
 
 read -rp "Enter disk (/dev/nvme0n1): " DISK
 
@@ -144,10 +144,6 @@ info "Partition layout"
 
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS "$DISK"
 
-info "BYE BYE"
-echo
-exit
-
 # ============================================================
 # FORMAT PARTITIONS
 # ============================================================
@@ -185,6 +181,10 @@ mount "$HOME" /mnt/home
 
 swapon "$SWAP"
 
+
+info "BYE BYE"
+echo
+exit
 
 # ============================================================
 # INSTALL BASE ARCH SYSTEM

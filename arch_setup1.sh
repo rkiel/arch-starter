@@ -99,48 +99,6 @@ echo "UEFI mode detected."
 
 info "Wi-Fi setup"
 
-if ! command -v iwctl >/dev/null 2>&1; then
-    die "iwctl is not available on this Arch ISO."
-fi
-
-# Find the first wireless interface automatically.
-WIFI_DEVICE="$(iwctl device list | awk '/station/ {print $2; exit}')"
-
-if [[ -z "$WIFI_DEVICE" ]]; then
-    die "No wireless interface was detected."
-fi
-
-echo "Wireless device detected: $WIFI_DEVICE"
-echo
-
-# Scan for networks first.
-iwctl station "$WIFI_DEVICE" scan
-
-iwctl station $WIFI_DEVICE get-networks
-echo
-
-read -rp "Wi-Fi network name (SSID): " WIFI_SSID
-
-[[ -n "$WIFI_SSID" ]] || die "No Wi-Fi network name entered."
-
-echo
-echo "Connecting to: $WIFI_SSID"
-echo
-echo "iwctl will now ask for your Wi-Fi passphrase."
-echo
-
-# iwctl handles the passphrase interactively.
-iwctl station "$WIFI_DEVICE" connect "$WIFI_SSID"
-
-echo
-echo "Waiting for network connection..."
-sleep 3
-
-
-# ============================================================
-# VERIFY INTERNET
-# ============================================================
-
 info "Checking internet connection"
 
 if ! ping -c 3 archlinux.org >/dev/null 2>&1; then

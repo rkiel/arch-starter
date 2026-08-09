@@ -44,21 +44,12 @@ info() {
 
 MODEL="$(cat /sys/devices/virtual/dmi/id/product_name 2>/dev/null || true)"
 
-echo
-echo "Detected computer:"
-echo
-echo "    $MODEL"
-echo
-
 if [[ "$MODEL" != "$EXPECTED_MODEL" ]]; then
     die "This script is intended for $EXPECTED_MODEL. Detected: $MODEL"
 fi
 
 
 # ============================================================
-# VERIFY UEFI MODE
-# ============================================================
-
 info "Checking UEFI mode"
 
 if [[ ! -d /sys/firmware/efi/efivars ]]; then
@@ -68,58 +59,38 @@ fi
 echo "UEFI mode detected."
 
 # ============================================================
-# TIME SYNCHRONIZATION
-# ============================================================
-
-info "Enabling network time synchronization"
+info "TIME SYNCHRONIZATION"
 
 timedatectl set-ntp true
 
 # ============================================================
-# CONFIRM TARGET DISK
-# ============================================================
+info "PARTITION AND FORMAT TARGET DISK"
 
-read -rp 'Type DISK to continue initializing DISK: ' CONFIRM_DISK
+echo
+read -rp 'Type FORMAT to erase disk: ' CONFIRM_FORMAT
 
-if [[ "$CONFIRM_DISK" == "DISK" ]]; then
-
-info "TARGET DISK"
+if [[ "$CONFIRM_FORMAT" == "FORMAT" ]]; then
 
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS
 
-read -rp "Enter disk (/dev/nvme0n1): " DISK
+echo
+read -rp "Enter disk name (/dev/nvme0n1): " DISK
 
 echo
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo "WARNING: THE ENTIRE DISK WILL BE ERASED"
-echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-echo
-echo "Target:"
-echo
-echo "    $DISK"
-echo
-echo "This will destroy ALL data on this disk."
-echo
+read -rp "Enter EFI size (1G): " EFI_SIZE
 
-read -rp 'Type ERASE to continue: ' CONFIRM_ERASE
+echo
+read -rp "Enter SWAP size (8G): " SWAP_SIZE
 
-if [[ "$CONFIRM_ERASE" == "ERASE" ]]; then
+echo
+read -rp "Enter ROOT size (40G): " ROOT_SIZE
 
+# remaining space /home
+
+echo
+read -rp "Enter LABEL (gpt): " DISK_LABEL
 
 # ============================================================
-# PARTITION DISK
-#
-# p1 = 1 GiB EFI
-# p2 = 8 GiB swap
-# p3 = 40 GiB root
-# p4 = remaining space /home
-# ============================================================
-
-EFI_SIZE="1G"
-SWAP_SIZE="8G"
-ROOT_SIZE="40G"
-DISK_LABEL="gpt"
-
 info "Partitioning $DISK"
 
 wipefs -a "$DISK"
@@ -143,53 +114,47 @@ partprobe "$DISK"
 sleep 2
 
 # ============================================================
-# FORMAT PARTITIONS
-# ============================================================
-
 info "Formatting EFI partition"
-
 mkfs.fat -F32 "$EFI"
 
 info "Formatting swap"
-
 mkswap "$SWAP"
 
 info "Formatting root filesystem"
-
 mkfs.ext4 -F "$ROOT"
 
 info "Formatting home filesystem"
-
 mkfs.ext4 -F "$HOME"
 
 
 # ============================================================
-# MOUNT FILESYSTEMS
-# ============================================================
-
-info "Mounting filesystems"
-
+info "Mounting root filesystem"
 mount "$ROOT" /mnt
 
+info "Mounting EFI filesystem"
 mkdir -p /mnt/boot
 mount "$EFI" /mnt/boot
 
+info "Mounting HOME filesystem"
 mkdir -p /mnt/home
 mount "$HOME" /mnt/home
 
+info "Mounting SWAP filesystem"
 swapon "$SWAP"
 
-info "Partition layout"
+# ============================================================
+info "Partition Complete"
 
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS "$DISK"
 
 fi
 
-fi
 
+# ============================================================
+info "Install base Arch Linux system"
 
 echo
-read -rp 'Type PACSTRAP to continue: ' CONFIRM_PACSTRAP
+read -rp 'Type PACSTRAP to install: ' CONFIRM_PACSTRAP
 
 if [[ "$CONFIRM_PACSTRAP" == "PACSTRAP" ]]; then
 
@@ -212,8 +177,6 @@ if [[ "$CONFIRM_PACSTRAP" == "PACSTRAP" ]]; then
 # linux-firmware - kernal
 # intel-ucode - Intel based CPUs vs amd-ucode
 
-info "Installing base Arch Linux"
-
 pacstrap -K /mnt base
 pacstrap -K /mnt linux
 pacstrap -K /mnt linux-firmware
@@ -235,16 +198,10 @@ fi
 
 
 # ============================================================
-# GENERATE FSTAB
-# ============================================================
+info "GENERATE FSTAB"
 
-echo
-genfstab -U /mnt
-
-if [[ "$CONFIRM_ERASE" == "ERASE" ]]; then
-info "Generating /etc/fstab"
-
-genfstab -U /mnt >> /mnt/etc/fstab
+if [[ "$CONFIRM_FORMAT" == "FORMAT" ]]; then
+genfstab -U /mnt > /mnt/etc/fstab
 fi
 
 cat /mnt/etc/fstab

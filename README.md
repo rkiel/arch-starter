@@ -27,8 +27,18 @@ curl -LJO https://raw.githubusercontent.com/rkiel/arch-starter/refs/heads/master
 chmod u+x arch_setup1.sh
 ```
 
-### Execute
+### Execute Script 1
 
 ```
 ./arch_setup1.sh
+```
+
+### Execute Script 2
+
+```
+arch-chroot /mnt
+
+./arch_chroot2.sh
+
+exit
 ```

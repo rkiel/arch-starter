@@ -11,8 +11,6 @@ set -euo pipefail
 # Apple MacBookPro14,1
 # ============================================================
 
-TIMEZONE="America/New_York"
-LOCALE="en_US.UTF-8"
 
 EXPECTED_MODEL="MacBookPro14,1"
 
@@ -71,6 +69,7 @@ read -rp 'Type FORMAT to erase disk: ' CONFIRM_FORMAT
 
 if [[ "$CONFIRM_FORMAT" == "FORMAT" ]]; then
 
+echo
 lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS
 
 echo
@@ -197,115 +196,29 @@ pacstrap -K /mnt dosfstools
 fi
 
 
+if [[ "$CONFIRM_FORMAT" == "FORMAT" ]]; then
+
 # ============================================================
 info "GENERATE FSTAB"
 
-if [[ "$CONFIRM_FORMAT" == "FORMAT" ]]; then
 genfstab -U /mnt > /mnt/etc/fstab
-fi
 
 cat /mnt/etc/fstab
 
-info "BYE BYE"
+fi
+
+# ============================================================
+info "DOWNLOAD SCRIPTS"
+
+GITHUB="https://raw.githubusercontent.com/rkiel/arch-starter/refs/heads/master"
+SCRIPT="arch_chroot2.sh"
+curl -LJO "$GITHUB/$SCRIPT"
+chmod u+x $SCRIPT
+cp $SCRIPT /mnt
+
+info "ARCH SETUP 1 COMPLETE"
 echo
 exit
-
-# ============================================================
-# BASIC SYSTEM CONFIGURATION
-# ============================================================
-
-read -rp "Enter username (bob): " USERNAME
-read -rp "Enter hostname (archlinux): " HOSTNAME
-
-info "Configuring base system"
-
-arch-chroot /mnt /bin/bash <<EOF
-
-set -e
-
-# ------------------------------------------------------------
-# Timezone
-# ------------------------------------------------------------
-
-ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
-
-hwclock --systohc
-
-
-# ------------------------------------------------------------
-# Locale
-# ------------------------------------------------------------
-
-sed -i 's/^#\(en_US.UTF-8 UTF-8\)/\1/' /etc/locale.gen
-
-locale-gen
-
-echo "LANG=$LOCALE" > /etc/locale.conf
-
-
-# ------------------------------------------------------------
-# Console keyboard
-# ------------------------------------------------------------
-
-echo "KEYMAP=us" > /etc/vconsole.conf
-
-
-# ------------------------------------------------------------
-# Hostname
-# ------------------------------------------------------------
-
-echo "$HOSTNAME" > /etc/hostname
-
-cat > /etc/hosts <<HOSTS
-127.0.0.1   localhost
-::1         localhost
-127.0.1.1   $HOSTNAME.localdomain $HOSTNAME
-HOSTS
-
-
-# ------------------------------------------------------------
-# Sudo
-# ------------------------------------------------------------
-
-cat > /etc/sudoers.d/wheel <<SUDO
-%wheel ALL=(ALL:ALL) ALL
-SUDO
-
-chmod 440 /etc/sudoers.d/wheel
-
-
-# ------------------------------------------------------------
-# Create user
-# ------------------------------------------------------------
-
-useradd \
-    --create-home \
-    --groups wheel \
-    --shell /bin/bash \
-    "$USERNAME"
-
-
-# ------------------------------------------------------------
-# Enable NetworkManager
-# ------------------------------------------------------------
-
-systemctl enable NetworkManager
-
-EOF
-
-
-# ============================================================
-# PASSWORDS
-# ============================================================
-
-info "Set root password"
-
-arch-chroot /mnt passwd
-
-info "Set password for $USERNAME"
-
-arch-chroot /mnt passwd "$USERNAME"
-
 
 # ============================================================
 # INSTALL HYPRLAND

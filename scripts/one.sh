@@ -183,7 +183,7 @@ pacstrap -K /mnt intel-ucode
 pacstrap -K /mnt networkmanager
 pacstrap -K /mnt sudo
 pacstrap -K /mnt vim
-pacstrap -K /mnt nano
+# pacstrap -K /mnt nano
 pacstrap -K /mnt git
 pacstrap -K /mnt base-devel
 pacstrap -K /mnt man-db
@@ -194,6 +194,13 @@ pacstrap -K /mnt efibootmgr
 pacstrap -K /mnt dosfstools
 pacstrap -K /mnt stow
 pacstrap -K /mnt zsh
+# Ruby
+pacstrap -K /mnt mise
+pacstrap -K /mnt openssl
+pacstrap -K /mnt libyaml
+pacstrap -K /mnt libffi
+pacstrap -K /mnt gmp
+pacstrap -K /mnt rust
 
 fi
 

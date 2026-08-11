@@ -22,23 +22,27 @@ iwctl station $DD connect $SS
 ### Download install script
 
 ```
-curl -LJO https://raw.githubusercontent.com/rkiel/arch-starter/refs/heads/master/arch_setup1.sh
-
-chmod u+x arch_setup1.sh
+git clone https://github.com/rkiel/arch-starter.git
 ```
 
 ### Execute Script 1
 
 ```
-./arch_setup1.sh
+cd arch-starter
+
+./scripts/one.sh
 ```
 
 ### Execute Script 2
 
 ```
+mv arch-starter /mnt
+
 arch-chroot /mnt
 
-./arch_chroot2.sh
+cd /mnt/arch-starter
+
+./scripts/two.sh
 
 exit
 ```

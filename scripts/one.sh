@@ -192,6 +192,8 @@ pacstrap -K /mnt texinfo
 pacstrap -K /mnt bash-completion
 pacstrap -K /mnt efibootmgr
 pacstrap -K /mnt dosfstools
+pacstrap -K /mnt stow
+pacstrap -K /mnt zsh
 
 fi
 
@@ -206,15 +208,6 @@ genfstab -U /mnt > /mnt/etc/fstab
 cat /mnt/etc/fstab
 
 fi
-
-# ============================================================
-info "DOWNLOAD SCRIPTS"
-
-GITHUB="https://raw.githubusercontent.com/rkiel/arch-starter/refs/heads/master"
-SCRIPT="arch_chroot2.sh"
-curl -LJO "$GITHUB/$SCRIPT"
-chmod u+x $SCRIPT
-cp $SCRIPT /mnt
 
 info "ARCH SETUP 1 COMPLETE"
 echo

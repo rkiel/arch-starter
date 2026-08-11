@@ -73,7 +73,7 @@ read -rp "Enter username (bob): " USERNAME
 useradd \
     --create-home \
     --groups wheel \
-    --shell /bin/bash \
+    --shell /bin/zsh \
     "$USERNAME"
 
 # ------------------------------------------------------------

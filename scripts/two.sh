@@ -92,7 +92,7 @@ MODEL=$(cat /sys/devices/virtual/dmi/id/product_name)
 if [[ "$MODEL" == "MacBookPro14,1" ]]; then
   info "Framebuffer fixes for $MODEL"
 
-  cat > /mnt/etc/systemd/system/macbook-framebuffer.service <<'EOF'
+  cat > /etc/systemd/system/macbook-framebuffer.service <<'EOF'
 [Unit]
 Description=Fix MacBook Pro console framebuffer
 Before=getty.target

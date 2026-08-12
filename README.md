@@ -50,3 +50,11 @@ cd arch-starter
 
 exit
 ```
+
+### Reboot
+
+```
+umount -R /mnt
+
+reboot
+```

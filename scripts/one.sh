@@ -190,7 +190,6 @@ pacstrap -K /mnt man-db
 pacstrap -K /mnt man-pages
 pacstrap -K /mnt texinfo
 pacstrap -K /mnt bash-completion
-pacstrap -K /mnt efibootmgr
 pacstrap -K /mnt dosfstools
 pacstrap -K /mnt stow
 pacstrap -K /mnt zsh
@@ -201,6 +200,9 @@ pacstrap -K /mnt libyaml
 pacstrap -K /mnt libffi
 pacstrap -K /mnt gmp
 pacstrap -K /mnt rust
+# bootloader
+pacstrap -K /mnt grub
+pacstrap -K /mnt efibootmgr
 
 fi
 

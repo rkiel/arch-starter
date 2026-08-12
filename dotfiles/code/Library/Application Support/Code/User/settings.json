@@ -1,0 +1,15 @@
+{
+    "editor.minimap.enabled": false,
+    "editor.fontSize": 14,
+    "workbench.preferredDarkColorTheme": "Atom One Dark",
+    "workbench.preferredHighContrastColorTheme": "Atom One Dark",
+    "workbench.preferredHighContrastLightColorTheme": "Atom One Dark",
+    "workbench.preferredLightColorTheme": "Atom One Dark",
+    "workbench.colorTheme": "Atom One Dark",
+    "prettier.configPath": "/Users/robert/GitHub/prettierrc",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "js/ts.format.enabled": false,
+    "editor.formatOnSave": true
+}

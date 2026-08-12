@@ -87,7 +87,7 @@ passwd
 
 # ============================================================
 info "$USERNAME PASSWORD"
-passwd $"USERNAME"
+passwd "$USERNAME"
 
 
 info "ARCH CHROOT 2 COMPLETE"

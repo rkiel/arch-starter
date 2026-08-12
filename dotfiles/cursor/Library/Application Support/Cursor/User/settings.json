@@ -1,0 +1,12 @@
+{
+    "window.autoDetectColorScheme": true,
+    "vim.disableExtension": false,
+    "editor.tabSize": 2,
+
+     "editor.formatOnSave": true,
+     "rubyLsp.formatter": "rubocop",
+    "[ruby]": {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "Shopify.ruby-lsp",
+    }
+}

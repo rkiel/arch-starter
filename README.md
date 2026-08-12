@@ -22,6 +22,8 @@ iwctl station $DD connect $SS
 ### Download install script
 
 ```
+pacman -Sy git
+
 git clone https://github.com/rkiel/arch-starter.git
 ```
 
@@ -31,6 +33,8 @@ git clone https://github.com/rkiel/arch-starter.git
 cd arch-starter
 
 ./scripts/one.sh
+
+cd ..
 ```
 
 ### Execute Script 2
@@ -40,7 +44,7 @@ mv arch-starter /mnt
 
 arch-chroot /mnt
 
-cd /mnt/arch-starter
+cd arch-starter
 
 ./scripts/two.sh
 

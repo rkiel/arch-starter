@@ -26,7 +26,6 @@ info() {
 }
 
 TIMEZONE="America/New_York"
-LOCALE="en_US.UTF-8"
 
 # ------------------------------------------------------------
 info "Timezone"
@@ -35,9 +34,11 @@ ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 
 hwclock --systohc
 
+LOCALE="en_US.UTF-8"
+
 # ------------------------------------------------------------
 info "Locale"
-echo "$LOCALE UTF-8" /etc/locale.gen
+echo "$LOCALE UTF-8" >> /etc/locale.gen
 
 locale-gen
 
@@ -80,6 +81,35 @@ useradd \
 info "Enable NetworkManager"
 
 systemctl enable NetworkManager
+
+# ------------------------------------------------------------
+# MacBookPro14,1 exposes a 2560x1600 panel, but i915drmfb
+# initializes the Linux console framebuffer as 2880x1800.
+# This causes the lower portion of the TTY to render off-screen.
+# Force fb0 geometry to the panel's actual resolution.
+MODEL=$(cat /sys/devices/virtual/dmi/id/product_name)
+
+if [[ "$MODEL" == "MacBookPro14,1" ]]; then
+  info "Framebuffer fixes for $MODEL"
+
+  cat > /mnt/etc/systemd/system/macbook-framebuffer.service <<'EOF'
+[Unit]
+Description=Fix MacBook Pro console framebuffer
+Before=getty.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/fbset -g 2560 1600 2560 1600 32
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+  systemctl enable macbook-framebuffer.service
+fi
+
+
 
 # ============================================================
 info "ROOT PASSWORD"

@@ -58,3 +58,11 @@ umount -R /mnt
 
 reboot
 ```
+
+### Login as root
+
+```
+nmcli device wifi connect SSID --ask
+
+nmcli connection show
+```

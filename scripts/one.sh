@@ -181,6 +181,7 @@ pacstrap -K /mnt linux
 pacstrap -K /mnt linux-firmware
 pacstrap -K /mnt intel-ucode
 pacstrap -K /mnt networkmanager
+pacstrap -K /mnt fbset
 pacstrap -K /mnt sudo
 pacstrap -K /mnt vim
 # pacstrap -K /mnt nano

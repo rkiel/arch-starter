@@ -66,6 +66,8 @@ nmcli device wifi connect SSID --ask
 
 nmcli connection show
 
+ping -c 3 archlinux.org
+
 exit
 ```
 

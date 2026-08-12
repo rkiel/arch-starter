@@ -4,7 +4,7 @@
 #eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 #eval "$(/Users/robert/.local/bin/mise activate zsh)"
 
-bindkey -v
+bindkey -v # vim mode
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000

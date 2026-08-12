@@ -65,4 +65,19 @@ reboot
 nmcli device wifi connect SSID --ask
 
 nmcli connection show
+
+exit
+```
+
+### Login as user
+
+```
+mkdir -p ~/GitHub/rkiel
+cd ~/GitHub/rkiel
+git clone https://github.com/rkiel/arch-starter.git
+
+cd arch-starter/dotfiles
+./zsh.sh
+./code.sh
+./cursor.sh
 ```

@@ -25,6 +25,8 @@ iwctl station $DD connect $SS
 pacman -Sy git
 
 git clone https://github.com/rkiel/arch-starter.git
+
+cp -R arch-starter /mnt
 ```
 
 ### Execute Script 1
@@ -40,13 +42,23 @@ cd ..
 ### Execute Script 2
 
 ```
-mv arch-starter /mnt
-
 arch-chroot /mnt
 
 cd arch-starter
 
 ./scripts/two.sh
+
+exit
+```
+
+### Execute Script 3
+
+```
+arch-chroot /mnt
+
+cd arch-starter
+
+./scripts/three.sh
 
 exit
 ```
@@ -82,4 +94,21 @@ cd arch-starter/dotfiles
 ./zsh.sh
 ./code.sh
 ./cursor.sh
+
+
+start-hyprland
 ```
+
+# Hyprland's primary job is: Manage windows.
+
+# Hyprland knows absolutely nothing about terminals.
+
+# Think of Hyprland as the conductor of an orchestra.
+
+# Kitty is a terminal
+
+# Waybar is simply a panel.
+
+# Applications send notifications. Mako displays them.
+
+# Wofi is a launcher

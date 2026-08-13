@@ -33,6 +33,13 @@ info() {
     echo
 }
 
+install() {
+    echo
+    echo "============================================================"
+    pacstrap -K /mnt $1
+    echo "============================================================"
+    echo
+}
 
 # ============================================================
 # SANITY CHECKS
@@ -153,9 +160,9 @@ fi
 info "Install base Arch Linux system"
 
 echo
-read -rp 'Type PACSTRAP to install: ' CONFIRM_PACSTRAP
+read -rp 'Type INSTALL to install: ' CONFIRM_INSTALL
 
-if [[ "$CONFIRM_PACSTRAP" == "PACSTRAP" ]]; then
+if [[ "$CONFIRM_INSTALL" == "INSTALL" ]]; then
 
 # ============================================================
 # INSTALL BASE ARCH SYSTEM
@@ -176,34 +183,27 @@ if [[ "$CONFIRM_PACSTRAP" == "PACSTRAP" ]]; then
 # linux-firmware - kernal
 # intel-ucode - Intel based CPUs vs amd-ucode
 
-pacstrap -K /mnt base
-pacstrap -K /mnt linux
-pacstrap -K /mnt linux-firmware
-pacstrap -K /mnt intel-ucode
-pacstrap -K /mnt networkmanager
-pacstrap -K /mnt fbset
-pacstrap -K /mnt sudo
-pacstrap -K /mnt vim
-# pacstrap -K /mnt nano
-pacstrap -K /mnt git
-pacstrap -K /mnt base-devel
-pacstrap -K /mnt man-db
-pacstrap -K /mnt man-pages
-pacstrap -K /mnt texinfo
-pacstrap -K /mnt bash-completion
-pacstrap -K /mnt dosfstools
-pacstrap -K /mnt stow
-pacstrap -K /mnt zsh
-# Ruby
-pacstrap -K /mnt mise
-pacstrap -K /mnt openssl
-pacstrap -K /mnt libyaml
-pacstrap -K /mnt libffi
-pacstrap -K /mnt gmp
-pacstrap -K /mnt rust
+install "base"
+install "linux"
+install "linux-firmware"
+install "intel-ucode"
+install "networkmanager"
+install "fbset"
+install "sudo"
+install "vim"
+install "git"
+install "base-devel"
+install "man-db"
+install "man-pages"
+install "texinfo"
+install "bash-completion"
+install "dosfstools"
+install "stow"
+install "zsh"
+install "fzf"
 # bootloader
-pacstrap -K /mnt grub
-pacstrap -K /mnt efibootmgr
+install "grub"
+install "efibootmgr"
 
 fi
 

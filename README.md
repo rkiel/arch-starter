@@ -32,7 +32,7 @@ git clone https://github.com/rkiel/arch-starter.git
 ```
 cd arch-starter
 
-./scripts/one.sh
+./scripts/root/one.sh
 
 cd ..
 ```
@@ -46,7 +46,7 @@ arch-chroot /mnt
 
 cd arch-starter
 
-./scripts/two.sh
+./scripts/root/two.sh
 
 exit
 ```
@@ -58,7 +58,7 @@ arch-chroot /mnt
 
 cd arch-starter
 
-./scripts/three.sh
+./scripts/root/three.sh
 
 exit
 ```
@@ -86,16 +86,15 @@ exit
 ### Login as user
 
 ```
-mkdir -p ~/GitHub/rkiel
-cd ~/GitHub/rkiel
-git clone https://github.com/rkiel/arch-starter.git
+GH=$HOME/GitHub/rkiel
+REPO=arch-starter
+mkdir -p $GH
+cd $GH
+git clone https://github.com/rkiel/$REPO.git
 
-cd arch-starter/dotfiles
-./zsh.sh
-./code.sh
-./cursor.sh
-./ruby.sh
+cd $REPO
 
+./scripts/user/one.sh $GH/$REPO
 
 start-hyprland
 ```

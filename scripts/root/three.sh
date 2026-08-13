@@ -60,4 +60,4 @@ install "libffi"
 install "gmp"
 install "rust"
 
-info "ARCH SETUP 3 COMPLETE"
+info "ARCH ROOT SETUP 3 COMPLETE"

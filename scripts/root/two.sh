@@ -128,4 +128,4 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 
 
-info "ARCH SETUP 2 COMPLETE"
+info "ARCH ROOT SETUP 2 COMPLETE"

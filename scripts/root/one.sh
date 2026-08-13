@@ -219,7 +219,7 @@ cat /mnt/etc/fstab
 
 fi
 
-info "ARCH SETUP 1 COMPLETE"
+info "ARCH ROOT SETUP 1 COMPLETE"
 echo
 exit
 

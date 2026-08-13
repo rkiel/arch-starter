@@ -67,17 +67,6 @@ chmod 440 /etc/sudoers.d/wheel
 
 
 # ------------------------------------------------------------
-info "Create user"
-
-read -rp "Enter username (bob): " USERNAME
-
-useradd \
-    --create-home \
-    --groups wheel \
-    --shell /bin/zsh \
-    "$USERNAME"
-
-# ------------------------------------------------------------
 info "Enable NetworkManager"
 
 systemctl enable NetworkManager
@@ -112,20 +101,29 @@ fi
 
 
 # ============================================================
-info "ROOT PASSWORD"
-passwd
-
-# ============================================================
-info "$USERNAME PASSWORD"
-passwd "$USERNAME"
-
-# ============================================================
 info "Bootloader"
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB # --removable
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
+# ============================================================
+info "ROOT PASSWORD"
+passwd
 
+# ------------------------------------------------------------
+info "Create user"
+
+read -rp "Enter username (bob): " USERNAME
+
+useradd \
+    --create-home \
+    --groups wheel \
+    --shell /bin/zsh \
+    "$USERNAME"
+
+# ============================================================
+info "$USERNAME PASSWORD"
+passwd "$USERNAME"
 
 info "ARCH ROOT SETUP 2 COMPLETE"

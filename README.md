@@ -96,6 +96,7 @@ cd $REPO
 
 ./scripts/user/one.sh $GH/$REPO
 
+cd ~
 start-hyprland
 ```
 

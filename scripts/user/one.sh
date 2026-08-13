@@ -24,7 +24,7 @@ info() {
     echo
 }
 
-pushd $1
+pushd $1/dotfiles
 
 # ============================================================
 info "zsh"
@@ -43,13 +43,20 @@ stow --no-folding -t ~ code
 info "Cursor"
 
 mkdir -p "$LIBRARY/Cursor/User"
-stow --no-folding -t ~ cusor
+stow --no-folding -t ~ cursor
+
+# ============================================================
+info "Hyprland"
+
+stow --no-folding -t ~ hyprland
 
 # ============================================================
 info "Ruby"
 
 mise install ruby@3
 mise use -g ruby@3
+
+eval "$(/usr/bin/env mise activate zsh)"
 
 # ============================================================
 info "Rails"

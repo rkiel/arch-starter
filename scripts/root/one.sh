@@ -186,6 +186,7 @@ if [[ "$CONFIRM_INSTALL" == "INSTALL" ]]; then
 install "base"
 install "linux"
 install "linux-firmware"
+install "linux-firmware-broadcom"
 install "intel-ucode"
 install "networkmanager"
 install "fbset"

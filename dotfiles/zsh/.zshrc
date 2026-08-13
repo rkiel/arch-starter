@@ -2,7 +2,7 @@
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load NVM
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Load NVM bash completion
 #eval "$(/opt/homebrew/bin/brew shellenv zsh)"
-#eval "$(/Users/robert/.local/bin/mise activate zsh)"
+eval "$(/usr/bin/env mise activate zsh)"
 
 bindkey -v # vim mode
 HISTFILE=~/.zsh_history

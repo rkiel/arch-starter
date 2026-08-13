@@ -94,6 +94,7 @@ cd arch-starter/dotfiles
 ./zsh.sh
 ./code.sh
 ./cursor.sh
+./ruby.sh
 
 
 start-hyprland

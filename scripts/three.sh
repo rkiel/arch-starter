@@ -39,10 +39,16 @@ info "Installing Hyprland and desktop packages"
 install "hyprland"
 install "xdg-desktop-portal"
 install "xdg-desktop-portal-hyprland"
+# Status bar
 install "waybar"
+# Application launcher
 install "wofi"
+# Notification Daemon
 install "mako"
+# Terminal
 install "kitty"
+# Wallpaper
+install "hyprpaper"
 
 # ============================================================
 info "Installing Ruby packages"

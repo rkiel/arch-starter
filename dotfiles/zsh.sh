@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-stow zsh
+stow -t ~ zsh

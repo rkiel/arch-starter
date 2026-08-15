@@ -10,6 +10,9 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
 # export FEATURE_USER=bob
 # GIT_UTILITIES=~/GitHub/rkiel/git-utilities
 # source ${GIT_UTILITIES}/dotfiles/zshrc

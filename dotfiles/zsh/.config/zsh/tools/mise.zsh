@@ -1,0 +1,1 @@
+eval "$(/usr/bin/env mise activate zsh)"

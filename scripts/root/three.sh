@@ -60,4 +60,14 @@ install "libffi"
 install "gmp"
 install "rust"
 
+# post rust install
+
+install "vim"
+install "stow"
+install "fzf"
+# fd instead of find
+# ripgrep (rg) instead of grep
+# bat instead of cat (where syntax highlighting is useful)
+# eza instead of ls (if you like richer directory listings)
+
 info "ARCH ROOT SETUP 3 COMPLETE"

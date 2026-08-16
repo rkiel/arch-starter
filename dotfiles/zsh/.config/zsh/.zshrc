@@ -1,5 +1,5 @@
 # Basic environment/settings
-source ~/.config/zsh/exports.zsh
+source $ZDOTDIR/exports.zsh
 
 # Shell options
 # source ~/.config/zsh/options.zsh
@@ -11,18 +11,18 @@ source ~/.config/zsh/exports.zsh
 # source ~/.config/zsh/completion.zsh
 
 # External interactive tools
-source ~/.config/zsh/tools/brew.zsh
-source ~/.config/zsh/tools/feature.zsh
-source ~/.config/zsh/tools/fzf.zsh
-source ~/.config/zsh/tools/history.zsh
-source ~/.config/zsh/tools/mise.zsh
-source ~/.config/zsh/tools/nvm.zsh
+source $ZDOTDIR/tools/brew.zsh
+source $ZDOTDIR/tools/feature.zsh
+source $ZDOTDIR/tools/fzf.zsh
+source $ZDOTDIR/tools/history.zsh
+source $ZDOTDIR/tools/mise.zsh
+source $ZDOTDIR/tools/nvm.zsh
 
 # Aliases
 # source ~/.config/zsh/aliases.zsh
 
 # Key bindings after widgets/functions exist
-source ~/.config/zsh/keybindings.zsh
+source $ZDOTDIR/keybindings.zsh
 
 # Prompt toward the end
 # source ~/.config/zsh/prompt.zsh

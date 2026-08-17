@@ -19,7 +19,7 @@ source $ZDOTDIR/tools/mise.zsh
 source $ZDOTDIR/tools/nvm.zsh
 
 # Aliases
-# source ~/.config/zsh/aliases.zsh
+source $ZDOTDIR/aliases.zsh
 
 # Key bindings after widgets/functions exist
 source $ZDOTDIR/keybindings.zsh

@@ -56,6 +56,21 @@ stow --no-folding -t ~ cursor
 # ============================================================
 info "Hyprland"
 
+WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
+mkdir -p "$WALLPAPER_DIR"
+cd "$WALLPAPER_DIR"
+WALLPAPER_URL="https://server.wallpaperalchemy.com/storage/wallpapers/197/arch-linux-purple-mountain-4k-wallpaper.jpeg"
+curl -fL -o arch-linux-one.jpeg "$WALLPAPER_URL" || echo "WARNING: Wallpaper download failed; continuing installation."
+
+WALLPAPER_DIR="https://server.wallpaperalchemy.com/storage/wallpapers/107/arch-linux-wallpaper-4k.jpeg"
+curl -fL -o arch-linux-two.jpeg "$WALLPAPER_URL" || echo "WARNING: Wallpaper download failed; continuing installation."
+
+WALLPAPER_DIR="https://server.wallpaperalchemy.com/storage/wallpapers/203/arch-linux-4k-minimalist-wallpaper.png"
+curl -fL -o arch-linux-three.png "$WALLPAPER_URL" || echo "WARNING: Wallpaper download failed; continuing installation."
+
+WALLPAPER_DIR="https://server.wallpaperalchemy.com/storage/wallpapers/200/arch-linux-wallpaper-4k.png"
+curl -fL -o arch-linux-four.png "$WALLPAPER_URL" || echo "WARNING: Wallpaper download failed; continuing installation."
+
 stow --no-folding -t ~ hyprland
 
 # ============================================================

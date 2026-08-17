@@ -25,7 +25,7 @@ source $ZDOTDIR/aliases.zsh
 source $ZDOTDIR/keybindings.zsh
 
 # Prompt toward the end
-# source ~/.config/zsh/prompt.zsh
+source $ZDOTDIR/prompt.zsh
 
 # source ~/.config/zsh/exports.zsh
 # source ~/.config/zsh/aliases.zsh

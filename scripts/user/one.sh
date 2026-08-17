@@ -26,12 +26,15 @@ info() {
 
 pushd $1/dotfiles
 
+LIBRARY="~/Library/Application Support"
+
 # ============================================================
 info "zsh"
 
+mkdir -p "$HOME/.local/state/zsh"
+
 stow -t ~ zsh
 
-LIBRARY="~/Library/Application Support"
 
 # ============================================================
 info "bat"

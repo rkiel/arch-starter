@@ -1,5 +1,5 @@
 # Location of the persistent history file shared across zsh sessions.
-HISTFILE="$XDG_CACHE_HOME/zsh_history"
+HISTFILE="$XDG_STATE_HOME/zsh/history"
 
 # Maximum number of history entries zsh keeps in memory for this shell.
 HISTSIZE=10000

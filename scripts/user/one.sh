@@ -34,6 +34,11 @@ stow -t ~ zsh
 LIBRARY="~/Library/Application Support"
 
 # ============================================================
+info "bat"
+
+stow --no-folding -t ~ bat
+
+# ============================================================
 info "Code"
 
 mkdir -p "$LIBRARY/Code/User"

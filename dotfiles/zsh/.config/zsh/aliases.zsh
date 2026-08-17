@@ -4,8 +4,10 @@
 #   3. Built-in commands
 #   4. External executables in your PATH
 
+alias more='less'
+alias mroe='less'
 
-fh() {
+h() {
     # create a local variable to prevent overwrite a global shell variable
     local cmd
     # fc stands for Fix Command.  It's zsh's built-in history command.
@@ -29,11 +31,26 @@ fh() {
     eval "$cmd"
 }
 
-fdir() {
+d() {
   fd --type d --hidden --exclude .git "$@"
 }
 
-ffile() {
-  fd --type f --hidden --exclude .git "$@"
+f() {
+  fd --type f --hidden --exclude .git "$@" |
+    fzf --preview 'bat --color=always {}' \
+        --preview-window 'right:60%' \
+        --bind 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'
 }
 
+# --all hidden files
+ls() {
+    eza --all --classify "$@"
+}
+
+lsl() {
+    eza --all --classify --long --header --git "$@"
+}
+
+lst() {
+    eza --all --classify --tree --level=3 "$@"
+}

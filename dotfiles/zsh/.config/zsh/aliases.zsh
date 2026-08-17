@@ -52,5 +52,11 @@ lsl() {
 }
 
 lst() {
-    eza --all --classify --tree --level=3 "$@"
+    eza --all --classify --tree --level=2 "$@"
+}
+
+v() {
+    local file
+    file=$(f) || return
+    vim "$file"
 }

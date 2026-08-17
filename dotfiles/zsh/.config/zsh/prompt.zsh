@@ -12,8 +12,8 @@ precmd() {
 }
 
 zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr '+'
-zstyle ':vcs_info:git:*' unstagedstr '*'
+zstyle ':vcs_info:git:*' stagedstr ' %F{red}+%f'
+zstyle ':vcs_info:git:*' unstagedstr ' %F{red}*%f'
 zstyle ':vcs_info:git:*' formats ' [%F{green}%b%f%c%u]'
 
 # %~    current directory, with $HOME abbreviated as ~

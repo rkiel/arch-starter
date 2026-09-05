@@ -62,12 +62,15 @@ install "rust"
 
 # post rust install
 
-install "vim"
+# neovim
+install "neovim"
+
 install "stow"
 install "fzf"
 install "fd"
 install "bat"
 install "eza"
+install "neovim"
 # ripgrep (rg) instead of grep
 
 info "ARCH ROOT SETUP 3 COMPLETE"

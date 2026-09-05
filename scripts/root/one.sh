@@ -253,7 +253,7 @@ arch-chroot /mnt pacman -S --noconfirm \
     vulkan-intel \
     libva-intel-driver \
     libva-utils \
-    firefox \
+    chromium \
     fastfetch \
     btop \
     unzip \

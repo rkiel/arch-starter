@@ -6,6 +6,7 @@
 
 alias more='less'
 alias mroe='less'
+alias vim='nvim'
 
 h() {
     # create a local variable to prevent overwrite a global shell variable

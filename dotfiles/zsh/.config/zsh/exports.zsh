@@ -9,3 +9,6 @@ export XDG_STATE_HOME="$HOME/.local/state"
 # -i   smart case-insensitive searching
 # -S   don't wrap long lines; scroll horizontally
 export LESS="-FXRiS"
+
+export EDITOR=nvim
+export VISUAL=nvim

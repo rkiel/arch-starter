@@ -34,6 +34,7 @@ local menu        = "hyprlauncher"
 local launcher    = "wofi"
 local statusbar   = "waybar"
 local wallpaper   = "hyprpaper"
+local browser     = "chromium"
 
 
 -------------------
@@ -51,7 +52,6 @@ hl.on("hyprland.start", function ()
   hl.exec_cmd(statusbar)
   hl.exec_cmd(wallpaper)
 --   hl.exec_cmd("nm-applet")
---   hl.exec_cmd("waybar & hyprpaper & firefox")
 end)
 
 

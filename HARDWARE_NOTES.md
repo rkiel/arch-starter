@@ -46,3 +46,17 @@ lsblk /dev/sdb
 sudo dd if=/dev/zero of=/dev/sdb bs=16M status=progress conv=fsync
 sudo wipefs /dev/sdb
 ```
+
+## IMAC #2 (27") 
+
+```
+cat /etc/modprobe.d/sound.conf
+```
+
+```
+sudo nvim /etc/modprobe.d/sound.conf
+```
+
+```
+options snd-hda-intel model=imac27_122
+```

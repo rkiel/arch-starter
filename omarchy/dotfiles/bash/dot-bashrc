@@ -24,3 +24,7 @@ fi
 if [ -r "/home/bob/GitHub/rkiel/git-utilities/dotfiles/shared/aliases.sh" ]; then
   source "/home/bob/GitHub/rkiel/git-utilities/dotfiles/shared/aliases.sh"
 fi
+
+if [ -r "/home/bob/GitHub/rkiel/arch-starter/omarchy/dotfiles/bash/aliases.sh" ]; then
+  source "/home/bob/GitHub/rkiel/arch-starter/omarchy/dotfiles/bash/aliases.sh" 
+fi

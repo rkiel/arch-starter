@@ -4,9 +4,18 @@
 #   3. Built-in commands
 #   4. External executables in your PATH
 
+alias cat='bat --color=auto'
+
+export PAGER=less
+export LESS='-FRX'
+# -R preserves ANSI colors.
+# -F exits when everything fits on one screen.
+# -X leaves the output visible after exiting.
 alias more='less'
 alias mroe='less'
+
 alias vim='nvim'
+
 
 h() {
     local cmd

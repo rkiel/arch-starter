@@ -22,3 +22,11 @@ mkdir -p original/dot-config/nvim/lua/config
 mv ~/.config/nvim/lua/config/options.lua original/dot-config/nvim/lua/config
 stow --dotfiles --no-folding -t ~ nvim
 ```
+
+### Starship
+
+```bash
+cd ~/GitHub/rkiel/arch-starter/omarchy/dotfiles/
+mv ~/.config/starship.toml original/dot-config
+stow --dotfiles --no-folding -t ~ starship
+```

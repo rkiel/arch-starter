@@ -1,0 +1,49 @@
+add_newline = false
+command_timeout = 200
+
+format = "${custom.repo_root}$git_branch$git_status${custom.current_dir}$character"
+
+[custom.repo_root]
+command = 'basename "$(git rev-parse --show-toplevel)"'
+when = true
+require_repo = true
+shell = ["sh"]
+format = '[$output]($style) '
+style = "bold blue"
+
+[custom.current_dir]
+command = 'basename "$PWD"'
+when = 'prefix=$(git rev-parse --show-prefix 2>/dev/null) || exit 0; test -n "$prefix"'
+shell = ["sh"]
+format = '[/$output]($style) '
+style = "bold blue"
+
+[directory]
+format = '[$path]($style) '
+style = "bold blue"
+truncation_length = 1
+truncation_symbol = "/"
+
+[git_branch]
+format = "[$branch]($style) "
+style = "bold cyan"
+symbol = ""
+
+[git_status]
+format = '[\[ $all_status$ahead_behind\]]($style) '
+style = "bold yellow"
+conflicted = "= "
+ahead = "A${count} "
+behind = "B${count} "
+diverged = "A${ahead_count}/B${behind_count} "
+up_to_date = ""
+untracked = "u "
+stashed = "$ "
+modified = "m "
+staged = "s "
+renamed = "r "
+deleted = "d "
+
+[character]
+success_symbol = '[\$](bold cyan)'
+error_symbol = '[\$](bold red)'
